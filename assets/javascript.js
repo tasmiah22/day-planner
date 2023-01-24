@@ -1,6 +1,6 @@
 var container = $('.container');
-var time = $(09,'HH');
-var today = $('#today');
+var time = moment().format("dddd, MMM Do YYYY", "");
+var today = moment().format("HH:mm:ss");
 var schedule = JSON.parse(localStorage.getItem('schedule')) || {
     9:'',
     10:'',
@@ -13,9 +13,20 @@ var schedule = JSON.parse(localStorage.getItem('schedule')) || {
     5:'',
 };
 
-// show todays day at the top of page //
+// show todays date and time at the top of page //
 
-today.text(moment().format('dddd MMMM Do'));
+$("#currentday").html(today + time); 
 
+$(document).ready(function () {
+$(".saveBtn").on("click", function (){
+    var enterText = $(this).siblings(".description").val();
+    var entryTime = $(this).parent().attr("id");
 
+    localStorage.setItem(entryTime, enterText);
+    console.log("Saved.");
+
+});
+
+function timeTracker(){
+    var timeNow = moment().hour();
 
