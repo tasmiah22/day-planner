@@ -1,16 +1,28 @@
-var container = $('.container');
-var time = $('#currentTime');
-var today = $('#currentDay');
+// var container = $('.container');
+// var time = $('#currentTime');
+// var today = $('#currentDay');
 
 // show todays date and time at the top of page //
 
-today.text(moment().format('dddd MMMM Do'));
-time.text(moment().format(HH,mm,ss));
+
+var time = (moment().format('HH,mm,ss'));
+var date = (moment().format('dddd MMMM Do'));
+
+$("#currentDay").html(date + time);
+
+$(document).ready(function(){
+      $(".saveBtn").on("click", function () {
+        var enterText = $(this).siblings(".description").val();
+        var entryTime = $(this).parent().attr("id");
+       localStorage.setItem(entryTime, enterText);
+       console.log("Saved");
+      });
 
 
 function timeTracker(){
     var timeNow = moment().hour();
 
+ 
 // colour code for past present & future events //
 
 $(".time-block").each(function () {
@@ -43,3 +55,8 @@ $(".time-block").each(function () {
     $("#hour15 .description").val(localStorage.getItem("hour15"));
     $("#hour16 .description").val(localStorage.getItem("hour16"));
   
+
+  //call//
+
+timeTracker();
+});
